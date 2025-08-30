@@ -90,7 +90,13 @@ jobs:
     - name: Create deployment package
       run: |
         mkdir -p dist
-        cp -r app.py templates static uploads models requirements.txt README.md dist/
+        # Copy main application files
+        cp app.py requirements.txt README.md dist/
+        # Copy templates directory
+        cp -r templates dist/ 2>/dev/null || mkdir -p dist/templates
+        # Create necessary directories
+        mkdir -p dist/static dist/models dist/uploads
+        # Create deployment package
         tar -czf cattle-breed-identifier.tar.gz -C dist .
     
     - name: Upload deployment artifact
