@@ -1,1 +1,23 @@
+/* shared.css - common styling used by all feature pages */
+:root{
+  --bg:#f5f7fb; --card:#fff; --accent:#1f6feb; --muted:#6b7280;
+  --maxw:980px;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#111}
+.container{max-width:var(--maxw);margin:28px auto;padding:16px}
+.card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 8px 28px rgba(17,24,39,0.06);margin-bottom:16px}
+.header{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.h1{font-size:20px;font-weight:700}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:12px}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+input,select,textarea,button{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ee;background:white;outline:none}
+button{background:var(--accent);color:white;border:0;cursor:pointer}
+.small{font-size:13px;color:var(--muted)}
+.preview-img{max-width:100%;height:auto;border-radius:8px;border:1px solid #eee;margin-top:8px}
+.result{padding:12px;border-radius:10px;background:#fbfdff;border:1px solid #eef6ff;margin-top:12px}
+.row{display:flex;gap:12px;align-items:center}
+.kv dt{font-weight:600} .kv dd{margin:0 0 8px 0;color:var(--muted)}
+.center{display:flex;gap:8px;align-items:center;justify-content:center}
+.link-btn{background:transparent;border:1px solid #e6e6f0;color:var(--accent);padding:8px 10px;border-radius:8px;cursor:pointer}
 
