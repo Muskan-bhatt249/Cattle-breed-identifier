@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport"content="width=device-width,initial-scale=1">
+<title>Agriloan</title><link rel="stylesheet" href="../styles/shared.css"></head><body>
+<div class="container">
+  <div class="card header"><div><div class="h1">Apply for Agri Loan</div><div class="small">Quick eligibility & apply form</div></div></div>
+  <div class="card">
+    <div class="form-row">
+      <div><label>Applicant Name</label><input id="name"></div>
+      <div><label>Mobile</label><input id="mobile"></div>
+      <div><label>Estimated Price (₹)</label><input id="price" type="number" value="100000"></div>
+    </div>
+    <div style="margin-top:12px" class="row">
+      <button id="eligBtn">Check Eligibility</button>
+      <div id="eligMsg" class="small"></div>
+    </div>
+
+    <div id="eligSection" class="result" style="display:none">
+      <p id="eligText"></p>
+      <button id="applyBtn">Start Application</button>
+      <div id="applyMsg" class="small"></div>
+    </div>
+  </div>
+</div>
+
+<script src="../scripts/shared.js"></script>
+<script>
+document.getElementById('eligBtn').addEventListener('click', ()=>{
+  const price = Number(document.getElementById('price').value || 0);
+  const eligibility = price > 50000 ? 'Likely eligible' : 'May not be eligible';
+  document.getElementById('eligText').textContent = `${eligibility}. Typical loan up to 70% of asset value.`;
+  document.getElementById('eligSection').style.display='block';
+  document.getElementById('eligMsg').textContent='Checked';
+});
+
+document.getElementById('applyBtn').addEventListener('click', async ()=>{
+  document.getElementById('applyMsg').textContent='Submitting...';
+  // Post to /api/loan-apply with KYC fields; here we mock
+  setTimeout(()=> document.getElementById('applyMsg').textContent='Application submitted (mock).'), 1000;
+});
+</script>
+</body></html>
