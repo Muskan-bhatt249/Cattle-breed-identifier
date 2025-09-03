@@ -1,0 +1,51 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport"content="width=device-width,initial-scale=1">
+<title>Farmers Discussion</title><link rel="stylesheet" href="../styles/shared.css"></head><body>
+<div class="container">
+  <div class="card header"><div><div class="h1">Farmer Discussion</div><div class="small">Ask questions, share tips</div></div></div>
+
+  <div class="card">
+    <div><label>New post</label><textarea id="postText" rows="3"></textarea></div>
+    <div style="margin-top:8px" class="row"><button id="postBtn">Post</button><div id="postStatus" class="small"></div></div>
+  </div>
+
+  <div id="feed" class="card">
+    <h3>Posts</h3>
+    <div id="postsList" class="small">Loading posts...</div>
+  </div>
+</div>
+
+<script src="../scripts/shared.js"></script>
+<script>
+const postsList = document.getElementById('postsList'), postBtn = document.getElementById('postBtn');
+async function loadPosts(){
+  postsList.innerHTML='Loading...';
+  // replace with GET /api/discussion
+  try{
+    const res = await fetch('/api/discussion');
+    if(!res.ok) throw new Error('no api');
+    const data = await res.json();
+    postsList.innerHTML = data.map(p=>`<div style="padding:8px;border-bottom:1px dashed #eee"><strong>${p.user}</strong> · <small>${p.time}</small><p>${p.text}</p></div>`).join('');
+  }catch(e){
+    // fallback mock posts
+    postsList.innerHTML = [
+      {user:'Ram', time:'2h', text:'Best fodder mix for Gir?'},
+      {user:'Sita', time:'1d', text:'How to apply for milk premium scheme?'}
+    ].map(p=>`<div style="padding:8px;border-bottom:1px dashed #eee"><strong>${p.user}</strong> · <small>${p.time}</small><p>${p.text}</p></div>`).join('');
+  }
+}
+postBtn.addEventListener('click', async ()=>{
+  const text = document.getElementById('postText').value.trim();
+  if(!text) return;
+  postBtn.disabled = true; document.getElementById('postStatus').textContent='Posting...';
+  // replace with POST /api/discussion
+  try{
+    await postJSON('/api/discussion', {text});
+    document.getElementById('postStatus').textContent='Posted';
+  }catch(e){
+    document.getElementById('postStatus').textContent='Posted (mock)';
+  } finally{ postBtn.disabled=false; loadPosts(); }
+});
+loadPosts();
+setInterval(loadPosts, 15000); // refresh every 15s
+</script>
+</body></html>
