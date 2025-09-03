@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport"content="width=device-width,initial-scale=1">
+<title>Medicare</title><link rel="stylesheet" href="../styles/shared.css"></head><body>
+<div class="container">
+  <div class="card header"><div><div class="h1">Medicare & Health</div><div class="small">Vaccines, symptoms & quick actions</div></div></div>
+  <div class="card">
+    <div class="form-row">
+      <div><label>Breed</label><select id="breed"><option>Gir</option><option>Murrah</option></select></div>
+      <div><label>Age (months)</label><input id="age" type="number" value="24"></div>
+    </div>
+    <div style="margin-top:12px" class="row">
+      <button id="healthBtn">Show Schedule</button>
+      <div id="healthStatus" class="small"></div>
+    </div>
+
+    <div id="healthResult" class="result" style="display:none">
+      <h3>Vaccination Schedule</h3>
+      <ul id="vacList"></ul>
+      <h3>Common Diseases & Actions</h3>
+      <div id="diseases"></div>
+    </div>
+  </div>
+</div>
+
+<script src="../scripts/shared.js"></script>
+<script>
+const healthBtn = document.getElementById('healthBtn'), healthStatus = document.getElementById('healthStatus');
+const vacList = document.getElementById('vacList'), diseases = document.getElementById('diseases'), healthResult = document.getElementById('healthResult');
+
+healthBtn.addEventListener('click', ()=>{
+  healthStatus.textContent='Loading...';
+  const breed = document.getElementById('breed').value;
+  // Ideally fetch breed info: /api/breeds -> use recommended_vaccinations / common_diseases
+  // For now static:
+  const schedule = ['FMD at 6 months', 'HS yearly', 'BQ yearly'];
+  vacList.innerHTML = schedule.map(s=>`<li>${s}</li>`).join('');
+  diseases.innerHTML = '<p><strong>Mastitis:</strong> Seek vet; maintain milking hygiene.</p><p><strong>FMD:</strong> isolate and report to vet authority.</p>';
+  healthResult.style.display='block';
+  healthStatus.textContent='Done';
+});
+</script>
+</body></html>
