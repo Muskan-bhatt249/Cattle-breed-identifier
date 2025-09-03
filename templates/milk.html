@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Increase Milk Production</title><link rel="stylesheet" href="../styles/shared.css"></head>
+<body>
+<div class="container">
+  <div class="card header"><div><div class="h1">Boost Milk Yield</div><div class="small">Personalized feed & management plan</div></div></div>
+
+  <div class="card">
+    <div class="form-row">
+      <div><label>Breed</label><select id="breed"><option>Gir</option><option>Sahiwal</option><option>Murrah</option></select></div>
+      <div><label>Age (months)</label><input id="age" type="number" value="48"></div>
+      <div><label>Current yield (lit/day)</label><input id="yield" type="number" value="6"></div>
+    </div>
+    <div style="margin-top:12px">
+      <label>Feeding type</label>
+      <select id="feedType"><option>Smallholder (low-cost)</option><option>High protein</option></select>
+    </div>
+    <div style="margin-top:12px" class="row">
+      <button id="planBtn">Get Improvement Plan</button>
+      <div id="planStatus" class="small"></div>
+    </div>
+
+    <div id="planResult" class="result" style="display:none">
+      <h3>Suggested Plan</h3>
+      <div id="planContent"></div>
+      <div style="margin-top:8px"><button id="downloadPlan" class="link-btn">Download Plan (TXT)</button></div>
+    </div>
+  </div>
+</div>
+
+<script src="../scripts/shared.js"></script>
+<script>
+const planBtn = document.getElementById('planBtn'), planStatus = document.getElementById('planStatus');
+const planResult = document.getElementById('planResult'), planContent = document.getElementById('planContent');
+
+planBtn.addEventListener('click', ()=>{
+  planStatus.textContent='Generating plan...';
+  const breed = document.getElementById('breed').value;
+  const age = Number(document.getElementById('age').value);
+  const yieldNow = Number(document.getElementById('yield').value);
+
+  // Simple rules-based plan
+  const tips = [];
+  tips.push(`1. Balanced concentrate feed twice daily with protein 16-18% for breed ${breed}.`);
+  tips.push(`2. Increase green fodder to ~10-12 kg/day; add 200-300g mineral mixture.`);
+  if(yieldNow < 8) tips.push('3. Check for mastitis; keep milking hygiene and regular udder massage.');
+  tips.push('4. Maintain clean water supply & comfortable shade; stress reduces milk.');
+  tips.push('5. Regular deworming & vaccination as per vet schedule.');
+
+  planContent.innerHTML = tips.map(t=>`<p>${t}</p>`).join('');
+  planResult.style.display = 'block';
+  planStatus.textContent='Plan ready';
+});
+
+document.getElementById('downloadPlan').addEventListener('click', ()=>{
+  const txt = planContent.innerText;
+  const blob = new Blob([txt], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='milk_plan.txt'; a.click();
+});
+</script>
+</body>
+</html>
