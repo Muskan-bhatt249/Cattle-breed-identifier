@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport"content="width=device-width,initial-scale=1">
+<title>Beema (Insurance)</title><link rel="stylesheet" href="../styles/shared.css"></head><body>
+<div class="container">
+  <div class="card header"><div><div class="h1">Beema — Livestock Insurance</div><div class="small">Compare policies, buy & claim</div></div></div>
+  <div class="card">
+    <label>Choose product</label>
+    <select id="policySelect">
+      <option value='{"name":"Basic Cover","premium":1200,"sum":50000}'>Basic Cover — ₹1,200/yr</option>
+      <option value='{"name":"Premium","premium":2500,"sum":100000}'>Premium — ₹2,500/yr</option>
+    </select>
+    <div style="margin-top:12px" class="row">
+      <button id="buyBtn">Buy Policy</button>
+      <div id="buyMsg" class="small"></div>
+    </div>
+    <div style="margin-top:12px" id="policyDetails" class="result" style="display:none"></div>
+  </div>
+</div>
+
+<script src="../scripts/shared.js"></script>
+<script>
+document.getElementById('buyBtn').addEventListener('click', ()=>{
+  const val = JSON.parse(document.getElementById('policySelect').value);
+  document.getElementById('policyDetails').innerHTML = `<p>Policy: ${val.name}</p><p>Premium: ${formatINR(val.premium)} per year</p><p>Sum insured: ${formatINR(val.sum)}</p>`;
+  document.getElementById('policyDetails').style.display='block';
+  // Hook: POST to /api/insurance/buy with user and cattle id
+  document.getElementById('buyMsg').textContent='Purchase flow mocked. Integrate payment gateway on backend.';
+});
+</script>
+</body></html>
