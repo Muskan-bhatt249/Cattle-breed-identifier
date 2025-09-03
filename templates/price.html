@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Price Estimator</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../styles/shared.css">
+</head>
+<body>
+<div class="container">
+  <div class="card header">
+    <div><div class="h1">Price Estimator</div><div class="small">Upload or scan cow/buffalo to get market price estimate</div></div>
+    <div class="small">Feature: Price Estimation</div>
+  </div>
+
+  <div class="card">
+    <label>Photo (JPG/PNG, ≤5MB)</label>
+    <input id="img" type="file" accept="image/png,image/jpeg">
+    <img id="preview" class="preview-img" style="display:none;">
+    <div class="form-row">
+      <div>
+        <label>Age (months)</label>
+        <input id="age" type="number" min="1" value="36">
+      </div>
+      <div>
+        <label>Weight (kg)</label>
+        <input id="weight" type="number" min="1" value="350">
+      </div>
+      <div>
+        <label>Breed (optional)</label>
+        <select id="breed">
+          <option>Gir</option><option>Red Sindhi</option><option>Sahiwal</option>
+          <option>Murrah</option><option>Surti</option><option>Jaffrabadi</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-top:12px" class="row">
+      <button id="estimateBtn">Estimate Price</button>
+      <button id="scanBtn" class="link-btn">Scan using Model</button>
+      <div id="status" class="small"></div>
+    </div>
+
+    <div id="resultBox" class="result" style="display:none">
+      <dl class="kv">
+        <dt>Estimated Price</dt><dd id="priceVal" style="font-size:22px"></dd>
+        <dt>Breakdown</dt><dd id="breakdown"></dd>
+      </dl>
+      <div class="center" style="margin-top:8px">
+        <button id="saveRecord">Save Record</button>
+      </div>
+      <div id="saveMsg" class="small" style="margin-top:8px"></div>
+    </div>
+  </div>
+</div>
+
+<script src="../scripts/shared.js"></script>
+<script>
+const imgEl = document.getElementById('img'), preview = document.getElementById('preview');
+const estimateBtn = document.getElementById('estimateBtn'), scanBtn = document.getElementById('scanBtn');
+const priceVal = document.getElementById('priceVal'), breakdown = document.getElementById('breakdown');
+const status = document.getElementById('status'), resultBox = document.getElementById('resultBox');
+const saveRecordBtn = document.getElementById('saveRecord'), saveMsg = document.getElementById('saveMsg');
+
+let selectedFile = null, scannedBreed = null, scanConfidence = null;
+
+imgEl.addEventListener('change', e => {
+  selectedFile = e.target.files[0];
+  if(!selectedFile) return;
+  preview.src = URL.createObjectURL(selectedFile); preview.style.display='block';
+});
+
+scanBtn.addEventListener('click', async () => {
+  if(!selectedFile){ showError(status, 'Choose image first to scan'); return; }
+  showOK(status, 'Scanning...');
+  // Replace URL with your /api/predict endpoint
+  const fd = new FormData(); fd.append('image', selectedFile);
+  try{
+    const res = await fetch('/api/predict', { method:'POST', body: fd });
+    if(!res.ok) throw new Error('Scan failed');
+    const data = await res.json();
+    scannedBreed = data.breed; scanConfidence = data.confidence;
+    document.getElementById('breed').value = scannedBreed;
+    showOK(status, `Detected ${scannedBreed} (${scanConfidence}%)`);
+  }catch(err){
+    showError(status, 'Scan API not available — using manual breed');
+  }
+});
+
+estimateBtn.addEventListener('click', async ()=>{
+  const age = Number(document.getElementById('age').value || 24);
+  const weight = Number(document.getElementById('weight').value || 300);
+  const breed = document.getElementById('breed').value;
+  status.textContent='Estimating...';
+  // Mock logic (replace with /api/price-estimate POST that accepts image + meta)
+  const base = {Gir:90000,'Red Sindhi':70000,Sahiwal:95000,Murrah:140000,Surti:75000,Jaffrabadi:110000}[breed] || 80000;
+  const ageFactor = 1 - Math.max(0, (36 - age))/250;
+  const weightFactor = 0.5 + Math.min(1.4, weight/500);
+  const price = Math.round(base * ageFactor * weightFactor);
+  priceVal.textContent = formatINR(price);
+  breakdown.innerHTML = `Breed base: ${formatINR(base)}<br>Age factor: ${ageFactor.toFixed(2)}<br>Weight factor: ${weightFactor.toFixed(2)}${scannedBreed ? `<br>Model confidence: ${scanConfidence}%` : ''}`;
+  resultBox.style.display='block';
+  status.textContent='Done (mock)';
+});
+
+saveRecordBtn.addEventListener('click', async ()=>{
+  saveMsg.textContent='Saving...';
+  // Replace with actual /api/register endpoint
+  try{
+    const resp = await postJSON('/api/register', {breed: document.getElementById('breed').value, price: priceVal.textContent});
+    saveMsg.textContent = 'Saved: ' + (resp.cattle_id || 'id-not-returned');
+  }catch(e){
+    saveMsg.textContent = 'Save failed (no backend).';
+  }
+});
+</script>
+</body>
+</html>
