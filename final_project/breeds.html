@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Breeds — Cattle AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
+  <link rel="icon" href="assets/circular_logo.png" type="image/png" sizes="32x32"/>
+  <link rel="icon" href="assets/circular_logo.png" type="image/png" sizes="16x16"/>
+  <link rel="shortcut icon" href="assets/circular_logo.png"/>
+  <link rel="apple-touch-icon" href="assets/circular_logo.png"/>
+</head>
+<body class="antialiased text-gray-900">
+  <!-- Navbar -->
+ <header class="fixed top-0 inset-x-0 z-50 backdrop-blur shadow-sm" style="background-color: rgba(249, 240, 194, 0.70);">
+
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2">
+  <img src="assets/logo.png" alt="Cattle AI Logo"  class="h-10 w-10 rounded-full object-cover">
+  <span class="font-semibold text-xl text-gray-900">Cattle AI</span>
+</a>
+
+
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a data-i18n="nav-home" href="index.html"  class="hover:text-[#f9b233]">Home</a>
+          <a data-i18n="nav-breeds" href="breeds.html"  class="hover:text-[#f9b233]">Breeds</a>
+          <a data-i18n="nav-identify" href="identify.html"  class="hover:text-[#f9b233]">Identify</a>
+          <a href="subsidy.html"  class="hover:text-[#f9b233]">Subsidies</a>
+          <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+          <a href="price.html"  class="hover:text-[#f9b233]">Price</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <select id="langSelect" class="border rounded-lg px-3 py-2 text-sm"></select>
+          <button id="mobileMenuBtn" class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border">☰</button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden px-4 pb-4">
+      <div class="flex flex-col gap-2 text-sm">
+        <a data-i18n="nav-home" href="index.html" class="py-2 border-b">Home</a>
+        <a data-i18n="nav-breeds" href="breeds.html" class="py-2 border-b">Breeds</a>
+        <a data-i18n="nav-identify" href="identify.html" class="py-2 border-b">Identify</a>
+        <a href="subsidy.html" class="py-2 border-b">Subsidies</a>
+        <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+    
+        <a href="price.html" class="py-2">Price</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pt-24 pb-16">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-3xl font-semibold" data-i18n="all_breeds">All Breeds</h1>
+      <input id="breedSearch" type="search" placeholder="Search breeds..." class="w-64 border rounded-lg px-4 py-2"/>
+    </div>
+
+    <div id="breedGrid" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"></div>
+  </main>
+
+  <!-- Modal -->
+  <div id="breedModal" class="fixed inset-0 hidden bg-black/60 z-50 items-center justify-center">
+    <div class="bg-white rounded-2xl shadow-xl w-11/12 md:w-2/3 lg:w-1/2 p-6 relative animate-fadeIn">
+      <button class="modal-close absolute top-3 right-3 h-10 w-10 rounded-full bg-gray-100 hover:bg-gray-200">✕</button>
+      <div class="grid md:grid-cols-2 gap-6">
+        <img id="modalImage" src="" alt="" class="rounded-xl object-cover h-64 w-full">
+        <div>
+          <h3 id="modalTitle" class="text-2xl font-semibold mb-3">Breed</h3>
+          <ul id="modalDetails" class="space-y-2 text-sm"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-24 text-white" style="background-color:#f9b233;">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-10 grid gap-8 md:grid-cols-3">
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Cattle AI</h4>
+        <p data-i18n="footer_text" class="text-white/80">Preserving India’s Heritage</p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Quick Links</h4>
+        <ul class="space-y-1 text-white/80">
+          <li><a href="breeds.html" class="hover:text-white">Breeds</a></li>
+          <li><a href="identify.html" class="hover:text-white">Identify</a></li>
+          <li><a href="subsidy.html" class="hover:text-white">Subsidies</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Contact</h4>
+        <p class="text-white/80">hello@cattle.ai</p>
+      </div>
+    </div>
+    <div class="border-t border-white/20 text-center py-4 text-white/70 text-sm">
+      © 2025 Cattle AI — All rights reserved.
+    </div>
+  </footer>
+  <!-- Chatbot Floating Icon -->
+  <div id="chatbot">
+    <button id="chatBtn">💬</button>
+    <div id="chatWindow">
+      <div id="chatHeader">Cattle AI Chatbot</div>
+      <div id="chatBody">
+        <div class="text-gray-500 text-center">Hello! How can I help you? 👋</div>
+      </div>
+      <div id="chatInputWrap">
+        <input id="chatInput" type="text" placeholder="Type a message..."/>
+        <button id="sendBtn">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const chatBtn = document.getElementById("chatBtn");
+    const chatWindow = document.getElementById("chatWindow");
+    const sendBtn = document.getElementById("sendBtn");
+    const chatBody = document.getElementById("chatBody");
+    const chatInput = document.getElementById("chatInput");
+
+    // Toggle chat window
+    chatBtn.addEventListener("click", () => {
+      chatWindow.style.display = chatWindow.style.display === "block" ? "none" : "block";
+    });
+
+    // Send message
+    sendBtn.addEventListener("click", () => {
+      const msg = chatInput.value.trim();
+      if(msg){
+        const userMsg = document.createElement("div");
+        userMsg.style.textAlign = "right";
+        userMsg.innerHTML = `<span style="background:#dcfce7; padding:4px 8px; border-radius:6px; display:inline-block; margin:4px 0;">${msg}</span>`;
+        chatBody.appendChild(userMsg);
+
+        chatInput.value = "";
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // Simulated reply
+        setTimeout(()=>{
+          const botMsg = document.createElement("div");
+          botMsg.style.textAlign = "left";
+          botMsg.innerHTML = `<span style="background:#f3f4f6; padding:4px 8px; border-radius:6px; display:inline-block; margin:4px 0;">🤖 Got it! "${msg}"</span>`;
+          chatBody.appendChild(botMsg);
+          chatBody.scrollTop = chatBody.scrollHeight;
+        }, 800);
+      }
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>

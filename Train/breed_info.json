@@ -1,0 +1,72 @@
+{
+  "Bhadawari": {
+    "description": "Bhadawari buffalo breed from Uttar Pradesh and Madhya Pradesh, known for high-fat milk.",
+    "characteristics": ["Copper-colored body", "Medium size", "Curved horns", "Good heat tolerance"],
+    "fodder_requirements": ["Green fodder: lucerne, berseem", "Dry roughage: wheat straw", "Concentrates during lactation", "Clean water ad libitum"],
+    "government_schemes": ["National Livestock Mission (NLM)", "Rashtriya Gokul Mission (RGM)", "Dairy Entrepreneurship Development Scheme (state variants)", "Kisan Credit Card for livestock"],
+    "best_practices": ["Regular deworming and vaccination", "Mineral mixture with vitamin A-D-E", "Proper housing with shade and ventilation", "Heat detection and timely AI"]
+  },
+  "Gir": {
+    "description": "Gir cattle from Gujarat, zebu breed valued for milk and resilience.",
+    "characteristics": ["Red/white coat with patches", "Bulging forehead", "Pendulous ears", "Hardy and disease resistant"],
+    "fodder_requirements": ["Green fodder: hybrid napier, maize, sorghum", "Dry fodder: hay/straw", "Protein supplement for heifers and lactating cows"],
+    "government_schemes": ["Rashtriya Gokul Mission (RGM)", "NABARD dairy schemes", "State breed conservation incentives"],
+    "best_practices": ["Balanced ration with mineral mixture", "Clean milking hygiene", "Regular hoof trimming", "Summer cooling and adequate water"]
+  },
+  "Jaffrabadi": {
+    "description": "Jaffrabadi buffalo from Saurashtra, Gujarat; heavy body and high milk yield.",
+    "characteristics": ["Massive body", "Long flat horns", "Black coat", "Calm temperament"],
+    "fodder_requirements": ["Green fodder and silage", "Good quality dry roughage", "Concentrates as per yield"],
+    "government_schemes": ["NLM", "RGM", "State dairy board incentives"],
+    "best_practices": ["Regular bathing to manage heat", "Clean housing floors", "Breeding record maintenance"]
+  },
+  "Kankrej": {
+    "description": "Kankrej dual-purpose zebu cattle from Gujarat and Rajasthan.",
+    "characteristics": ["Grey coat", "Lyre-shaped horns", "Strong draft ability", "Heat tolerant"],
+    "fodder_requirements": ["Sorghum/maize green fodder", "Dry straw", "Oil-cake/protein supplements for work/lactation"],
+    "government_schemes": ["RGM", "PM-Kisan Samman Nidhi (income support)", "Insurance subsidies under Livestock Insurance Scheme"],
+    "best_practices": ["Work-rest cycles in hot hours", "Vaccination schedule adherence", "Mineral mixture with salt lick"]
+  },
+  "Murrah": {
+    "description": "Murrah buffalo, most popular dairy buffalo breed in India.",
+    "characteristics": ["Jet black color", "Compact body", "Tightly curled horns", "High milk fat"],
+    "fodder_requirements": ["Hybrid napier, berseem", "Maize/sorghum silage", "Concentrates based on milk yield"],
+    "government_schemes": ["NLM", "RGM", "Dairy processing infra fund (DIDF)"] ,
+    "best_practices": ["Twice daily bathing in summer", "Clean water access", "Udder hygiene to prevent mastitis"]
+  },
+  "Nili_Ravi": {
+    "description": "Nili-Ravi buffalo from Punjab region; high milk production with good temperament.",
+    "characteristics": ["Black with white markings", "Walled eyes", "Small twisted horns", "Large udder"],
+    "fodder_requirements": ["Green fodder mix", "Silage for lean periods", "Concentrates during peak lactation"],
+    "government_schemes": ["Cross-border recognition; in India, NLM/RGM provisions where applicable"],
+    "best_practices": ["Comfortable housing and cooling", "Regular deworming", "Milking hygiene"]
+  },
+  "Red_Sindhi": {
+    "description": "Red Sindhi dairy cattle originally from Sindh; good milkers and adaptable.",
+    "characteristics": ["Reddish-brown coat", "Medium size", "Heat tolerant", "Good fertility"],
+    "fodder_requirements": ["Green fodder: cowpea/berseem mix", "Dry fodder: straw", "Bypass protein for high yielders"],
+    "government_schemes": ["RGM breed improvement", "State dairy support"],
+    "best_practices": ["Balanced ration and regular mineral mix", "AI and pregnancy diagnosis on schedule"]
+  },
+  "Sahiwal": {
+    "description": "Sahiwal is a premier indigenous dairy cattle breed from Punjab region.",
+    "characteristics": ["Reddish dun color", "Loose skin", "Docile temperament", "High milk yield among zebu"],
+    "fodder_requirements": ["Green fodder: berseem/lucerne", "Quality hay", "Concentrates based on yield"],
+    "government_schemes": ["RGM", "NABARD schemes", "Livestock insurance subsidies"],
+    "best_practices": ["Udder health monitoring", "Summer cooling and fly control", "Record-keeping"]
+  },
+  "Surti": {
+    "description": "Surti buffalo breed from Gujarat; medium-sized with characteristic sickle-shaped horns.",
+    "characteristics": ["Brown/grey coat", "Sickle-shaped horns", "Moderate milk fat", "Calm"],
+    "fodder_requirements": ["Green fodder and silage", "Dry roughage", "Concentrates as per production"],
+    "government_schemes": ["NLM", "RGM"] ,
+    "best_practices": ["Regular mineral supplementation", "Clean shed with drainage", "Heat stress management"]
+  },
+  "Tharparkar": {
+    "description": "Tharparkar dual-purpose cattle from Rajasthan; hardy and drought tolerant.",
+    "characteristics": ["White to grey coat", "Well-developed hump", "Strong draft power", "Disease resistance"],
+    "fodder_requirements": ["Drought-resilient fodder like bajra", "Dry fodder", "Mineral mixture"],
+    "government_schemes": ["RGM", "PM-Kisan", "State breed conservation"],
+    "best_practices": ["Water conservation and shade", "Strategic supplementation in dry seasons", "Vaccinations"]
+  }
+}

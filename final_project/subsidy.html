@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Government Subsidy Schemes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="antialiased text-gray-900 bg-gray-50">
+
+  <!-- Navbar -->
+ <header class="fixed top-0 inset-x-0 z-50 backdrop-blur shadow-sm" style="background-color: rgba(249, 240, 194, 0.70);">
+
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2">
+  <img src="assets/logo.png" alt="Cattle AI Logo"  class="h-10 w-10 rounded-full object-cover">
+  <span class="font-semibold text-xl text-gray-900">Cattle AI</span>
+</a>
+
+
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a data-i18n="nav-home" href="index.html"  class="hover:text-[#f9b233]">Home</a>
+          <a data-i18n="nav-breeds" href="breeds.html"  class="hover:text-[#f9b233]">Breeds</a>
+          <a data-i18n="nav-identify" href="identify.html"  class="hover:text-[#f9b233]">Identify</a>
+          <a href="subsidy.html"  class="hover:text-[#f9b233]">Subsidies</a>
+          <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+          <a href="price.html"  class="hover:text-[#f9b233]">Price</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <select id="langSelect" class="border rounded-lg px-3 py-2 text-sm"></select>
+          <button id="mobileMenuBtn" class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border">☰</button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden px-4 pb-4">
+      <div class="flex flex-col gap-2 text-sm">
+        <a data-i18n="nav-home" href="index.html" class="py-2 border-b">Home</a>
+        <a data-i18n="nav-breeds" href="breeds.html" class="py-2 border-b">Breeds</a>
+        <a data-i18n="nav-identify" href="identify.html" class="py-2 border-b">Identify</a>
+        <a href="subsidy.html" class="py-2 border-b">Subsidies</a>
+        <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+    
+        <a href="price.html" class="py-2">Price</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pt-28 pb-16">
+    <h1 class="text-3xl font-bold mb-6 text-[#4a2c2a]">Government Subsidy Schemes</h1>
+
+    <!-- Search -->
+    <div class="mb-6 flex justify-between items-center">
+      <input type="text" placeholder="Search schemes..." class="w-full md:w-1/2 border rounded-lg px-4 py-2 shadow-sm focus:ring-2 focus:ring-[#f9b233] focus:outline-none"/>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto bg-white rounded-2xl shadow-xl border border-gray-200">
+      <table class="min-w-full text-sm">
+        <thead class="bg-[#4a2c2a] text-white text-left">
+          <tr>
+            <th class="px-6 py-4 font-semibold">Scheme</th>
+            <th class="px-6 py-4 font-semibold">Administered By</th>
+            <th class="px-6 py-4 font-semibold">Category / Benefit</th>
+            <th class="px-6 py-4 font-semibold">Official Links</th>
+          </tr>
+        </thead>
+        <tbody id="subsidyTable" class="divide-y divide-gray-200">
+
+          <!-- Row 1 -->
+          <tr class="hover:bg-[#fff7e6]">
+            <td class="px-6 py-4 font-medium">Dairy Entrepreneurship Development Scheme (DEDS)</td>
+            <td class="px-6 py-4">NABARD, Dept. of Animal Husbandry</td>
+            <td class="px-6 py-4"><span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">Dairy</span> 25–33% subsidy</td>
+            <td class="px-6 py-4">
+              <div class="flex flex-wrap gap-2">
+                <a href="https://www.nabard.org" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">NABARD</a>
+                <a href="https://vikaspedia.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">Vikaspedia</a>
+                <a href="https://www.pmil.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">PMIL</a>
+                <a href="https://www.indiafilings.com" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">IndiaFilings</a>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Row 2 -->
+          <tr class="hover:bg-[#fff7e6]">
+            <td class="px-6 py-4 font-medium">National Livestock Mission (NLM)</td>
+            <td class="px-6 py-4">DAHD, Govt. of India</td>
+            <td class="px-6 py-4">
+              <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">Breeding</span> | 
+              <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Fodder</span> | Insurance
+            </td>
+            <td class="px-6 py-4">
+              <div class="flex flex-wrap gap-2">
+                <a href="https://dahd.nic.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">DAHD</a>
+                <a href="https://ahd.maharashtra.gov.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">Maharashtra DAHD</a>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Row 3 -->
+          <tr class="hover:bg-[#fff7e6]">
+            <td class="px-6 py-4 font-medium">ENSURE Portal (DBT under NLM)</td>
+            <td class="px-6 py-4">Developed by NABARD, managed by DAHD</td>
+            <td class="px-6 py-4"><span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">DBT</span> Transparency in payouts</td>
+            <td class="px-6 py-4">
+              <a href="https://ensure.nabard.org" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">ENSURE</a>
+            </td>
+          </tr>
+
+          <!-- Row 4 -->
+          <tr class="hover:bg-[#fff7e6]">
+            <td class="px-6 py-4 font-medium">e-Pashuhaat Portal</td>
+            <td class="px-6 py-4">Ministry of Agriculture & Farmers Welfare</td>
+            <td class="px-6 py-4"><span class="px-2 py-1 bg-pink-100 text-pink-800 rounded-full text-xs">Marketplace</span> Livestock trade & semen</td>
+            <td class="px-6 py-4">
+              <a href="https://epashuhaat.gov.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">e-Pashuhaat</a>
+            </td>
+          </tr>
+
+          <!-- Row 5 -->
+          <tr class="hover:bg-[#fff7e6]">
+            <td class="px-6 py-4 font-medium">Kisan Credit Card (KCC)</td>
+            <td class="px-6 py-4">Banks (with Govt. subsidy on interest)</td>
+            <td class="px-6 py-4"><span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs">Finance</span> Loans @4% interest</td>
+            <td class="px-6 py-4">
+              <a href="https://pmkisan.gov.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">PM-Kisan</a>
+            </td>
+          </tr>
+
+          <!-- Row 6 -->
+          <tr class="hover:bg-[#fff7e6]">
+            <td class="px-6 py-4 font-medium">Dairy Processing & Infrastructure Dev. Fund (DIDF)</td>
+            <td class="px-6 py-4">DAHD, NDDB, NCDC</td>
+            <td class="px-6 py-4"><span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Infrastructure</span> Low-interest loans</td>
+            <td class="px-6 py-4">
+              <a href="https://dahd.nic.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">DAHD</a>
+            </td>
+          </tr>
+
+          <!-- Row 7 -->
+          <tr class="hover:bg-[#fff7e6]">
+            <td class="px-6 py-4 font-medium">National Programme for Dairy Development (NPDD)</td>
+            <td class="px-6 py-4">DAHD</td>
+            <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Dairy</span> Quality & chilling infra</td>
+            <td class="px-6 py-4">
+              <a href="https://dahd.nic.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">DAHD</a>
+            </td>
+          </tr>
+
+          <!-- Row 8 -->
+          <tr class="hover:bg-[#fff7e6]">
+            <td class="px-6 py-4 font-medium">PM Kisan Samman Nidhi</td>
+            <td class="px-6 py-4">Ministry of Agriculture</td>
+            <td class="px-6 py-4"><span class="px-2 py-1 bg-teal-100 text-teal-800 rounded-full text-xs">Income Support</span> ₹6,000/year</td>
+            <td class="px-6 py-4">
+              <a href="https://pmkisan.gov.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">PM-Kisan</a>
+            </td>
+          </tr>
+
+          <!-- Row 9 -->
+          <tr class="hover:bg-[#fff7e6]">
+            <td class="px-6 py-4 font-medium">State Govt. Subsidy Schemes</td>
+            <td class="px-6 py-4">Respective State DAHDs</td>
+            <td class="px-6 py-4">
+              <span class="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs">State-specific</span>
+              UP: ₹30–50k | MP: Bima | Rajasthan: Sheds | Telangana: Buffalo
+            </td>
+            <td class="px-6 py-4">
+              <div class="flex flex-wrap gap-2">
+                <a href="https://animalhusbandryup.gov.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">UP</a>
+                <a href="https://mpkrishi.mp.gov.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">MP</a>
+                <a href="https://animalhusbandry.rajasthan.gov.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">Rajasthan</a>
+                <a href="https://ahdd.telangana.gov.in" class="px-3 py-1 bg-[#f9b233] text-white rounded-md hover:bg-[#e0a322] text-xs">Telangana</a>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </main>
+  
+
+  <!-- Footer -->
+  <footer class="mt-24 text-white" style="background-color:#f9b233;">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-10 grid gap-8 md:grid-cols-3">
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Cattle AI</h4>
+        <p class="text-white/80">Preserving India’s Heritage</p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Quick Links</h4>
+        <ul class="space-y-1 text-white/80">
+          <li><a href="breeds.html" class="hover:text-white">Breeds</a></li>
+          <li><a href="identify.html" class="hover:text-white">Identify</a></li>
+          <li><a href="subsidy.html" class="hover:text-white">Subsidies</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Contact</h4>
+        <p class="text-white/80">hello@cattle.ai</p>
+      </div>
+    </div>
+    <div class="border-t border-white/20 text-center py-4 text-white/70 text-sm">
+      © 2025 Cattle AI — All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Search Function -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.querySelector("input[placeholder='Search schemes...']");
+      const tableRows = document.querySelectorAll("#subsidyTable tr");
+
+      searchInput.addEventListener("keyup", () => {
+        const query = searchInput.value.toLowerCase();
+        tableRows.forEach(row => {
+          row.style.display = row.innerText.toLowerCase().includes(query) ? "" : "none";
+        });
+      });
+    });
+  </script>
+</body>
+</html>

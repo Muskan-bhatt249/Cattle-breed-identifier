@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Genetic Lineage Estimator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .swatch { width:28px; height:18px; border-radius:4px; display:inline-block; border:1px solid rgba(0,0,0,0.06) }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+
+  <!-- Navbar -->
+ <header class="fixed top-0 inset-x-0 z-50 backdrop-blur shadow-sm" style="background-color: rgba(249, 240, 194, 0.70);">
+
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2">
+  <img src="assets/logo.png" alt="Cattle AI Logo"  class="h-10 w-10 rounded-full object-cover">
+  <span class="font-semibold text-xl text-gray-900">Cattle AI</span>
+</a>
+
+
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a data-i18n="nav-home" href="index.html"  class="hover:text-[#f9b233]">Home</a>
+          <a data-i18n="nav-breeds" href="breeds.html"  class="hover:text-[#f9b233]">Breeds</a>
+          <a data-i18n="nav-identify" href="identify.html"  class="hover:text-[#f9b233]">Identify</a>
+          <a href="subsidy.html"  class="hover:text-[#f9b233]">Subsidies</a>
+          <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+          <a href="price.html"  class="hover:text-[#f9b233]">Price</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <select id="langSelect" class="border rounded-lg px-3 py-2 text-sm"></select>
+          <button id="mobileMenuBtn" class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border">☰</button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden px-4 pb-4">
+      <div class="flex flex-col gap-2 text-sm">
+        <a data-i18n="nav-home" href="index.html" class="py-2 border-b">Home</a>
+        <a data-i18n="nav-breeds" href="breeds.html" class="py-2 border-b">Breeds</a>
+        <a data-i18n="nav-identify" href="identify.html" class="py-2 border-b">Identify</a>
+        <a href="subsidy.html" class="py-2 border-b">Subsidies</a>
+        <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+    
+        <a href="price.html" class="py-2">Price</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 pt-28 pb-16">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">🧬 Genetic Lineage Estimator</h1>
+    <p class="text-gray-600 mb-8 max-w-2xl">
+      Upload a photo and provide breed details. This tool uses **visual traits, claimed lineage, and coat color analysis** 
+      to give an estimated purity score and possible breed mixes. 
+      <br>
+      <span class="text-red-600 font-medium">Note: This is not a DNA test, only an AI-powered estimator.</span>
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- LEFT: Inputs -->
+      <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+        <label class="block text-sm font-medium">Photo of Animal</label>
+        <input id="imgIn" type="file" accept="image/*" class="w-full border rounded-lg px-3 py-2" />
+        <div id="previewWrap" class="hidden mt-3">
+          <img id="preview" class="w-full rounded-md border" alt="preview" />
+        </div>
+
+        <label class="block text-sm font-medium mt-3">Claimed Breed</label>
+        <select id="claimedBreed" class="w-full border rounded-lg px-3 py-2">
+          <optgroup label="Cattle">
+            <option>Gir</option>
+            <option>Sahiwal</option>
+            <option>Tharparkar</option>
+            <option>Red Sindhi</option>
+            <option>Kankrej</option>
+          </optgroup>
+          <optgroup label="Buffalo">
+            <option>Murrah</option>
+            <option>Nili-Ravi</option>
+            <option>Surti</option>
+            <option>Jaffarabadi</option>
+            <option>Bhadawari</option>
+          </optgroup>
+        </select>
+
+        <label class="block text-sm font-medium mt-3">Visible Traits</label>
+        <div class="grid grid-cols-2 gap-2">
+          <label class="text-sm"><input type="checkbox" value="high_milk" class="trait" /> High milk yield</label>
+          <label class="text-sm"><input type="checkbox" value="heat_tolerant" class="trait" /> Heat tolerant</label>
+          <label class="text-sm"><input type="checkbox" value="disease_resistant" class="trait" /> Disease resistant</label>
+          <label class="text-sm"><input type="checkbox" value="drought_resistant" class="trait" /> Drought resistant</label>
+          <label class="text-sm"><input type="checkbox" value="high_fat" class="trait" /> High fat milk</label>
+          <label class="text-sm"><input type="checkbox" value="good_temperament" class="trait" /> Good temperament</label>
+          <label class="text-sm"><input type="checkbox" value="strong_draught" class="trait" /> Strong draught</label>
+        </div>
+
+        <label class="block text-sm font-medium mt-3">Lineage Tag (optional)</label>
+        <input id="lineage" class="w-full border rounded-lg px-3 py-2" placeholder="e.g., L-Gir-Alpha" />
+
+        <div class="flex gap-2 mt-5">
+          <button class="px-4 py-2 text-white rounded-md" style="background-color:#f9b233;">
+  Estimate Purity
+</button>
+
+
+      </div>
+
+      <!-- RIGHT: Results -->
+      <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+        <h3 class="text-lg font-semibold">Result</h3>
+        <div id="summary" class="p-3 rounded-md bg-gray-50 border text-sm">
+          No estimate yet — upload a photo and click <em>Estimate Purity</em>.
+        </div>
+
+        <div id="breakdown" class="hidden">
+          <h4 class="font-semibold mt-2">Score Breakdown</h4>
+          <ul id="bList" class="text-sm list-disc pl-5 text-gray-700"></ul>
+        </div>
+
+        <div id="topMix" class="hidden">
+          <h4 class="font-semibold mt-2">Top Breed Mix Candidates</h4>
+          <div id="mixList" class="space-y-2 mt-2"></div>
+        </div>
+
+        <div id="canvasWrap" class="hidden">
+          <h4 class="font-semibold mt-2">Image Color Cue</h4>
+          <div class="flex items-center gap-3">
+            <div>Average color: <span id="colorSwatch" class="swatch"></span></div>
+            <div class="text-sm text-gray-600" id="avgColorText"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-24 text-white" style="background-color:#f9b233;">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-10 grid gap-8 md:grid-cols-3">
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Cattle AI</h4>
+        <p data-i18n="footer_text" class="text-white/80">Preserving India’s Heritage</p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Quick Links</h4>
+        <ul class="space-y-1 text-white/80">
+          <li><a href="breeds.html" class="hover:text-white">Breeds</a></li>
+          <li><a href="identify.html" class="hover:text-white">Identify</a></li>
+          <li><a href="subsidy.html" class="hover:text-white">Subsidies</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Contact</h4>
+        <p class="text-white/80">hello@cattle.ai</p>
+      </div>
+    </div>
+    <div class="border-t border-white/20 text-center py-4 text-white/70 text-sm">
+      © 2025 Cattle AI — All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Hidden canvas for analysis -->
+  <canvas id="auxCanvas" style="display:none"></canvas>
+
+  <script>
+    const BREED_SIGNATURES = {
+      "Gir":          { color: "#b85a2b", traits:["high_milk","heat_tolerant"] },
+      "Sahiwal":      { color: "#c97b3e", traits:["high_milk","disease_resistant"] },
+      "Tharparkar":   { color: "#d2a26c", traits:["drought_resistant","high_milk"] },
+      "Red Sindhi":   { color: "#c24f2b", traits:["heat_tolerant","high_milk"] },
+      "Kankrej":      { color: "#8f7b56", traits:["strong_draught","moderate_milk"] },
+      "Murrah":       { color: "#121212", traits:["highest_milk"] },
+      "Nili-Ravi":    { color: "#2f3b59", traits:["good_milk"] },
+      "Surti":        { color: "#6b5a48", traits:["medium_milk","good_temperament"] },
+      "Jaffarabadi":  { color: "#5b4a3b", traits:["large_size","good_milk"] },
+      "Bhadawari":    { color: "#cda164", traits:["high_fat"] }
+    };
+
+    function computeAverageColor(imgEl, maxSize=300) {
+      const c = document.getElementById("auxCanvas");
+      const ctx = c.getContext("2d");
+      let w = imgEl.naturalWidth, h = imgEl.naturalHeight;
+      const scale = Math.min(1, maxSize / Math.max(w, h));
+      w = Math.round(w * scale); h = Math.round(h * scale);
+      c.width = w; c.height = h;
+      ctx.drawImage(imgEl, 0, 0, w, h);
+      const imgData = ctx.getImageData(0,0,w,h).data;
+      let r=0,g=0,b=0,count=0;
+      for(let i=0;i<imgData.length;i+=4){
+        const alpha = imgData[i+3];
+        if(alpha === 0) continue;
+        r += imgData[i]; g += imgData[i+1]; b += imgData[i+2]; count++;
+      }
+      if(count === 0) return {r:0,g:0,b:0};
+      return { r: Math.round(r/count), g: Math.round(g/count), b: Math.round(b/count) };
+    }
+
+    function colorDistance(c1, c2) {
+      const dr=c1.r-c2.r, dg=c1.g-c2.g, db=c1.b-c2.b;
+      return Math.sqrt(dr*dr + dg*dg + db*db);
+    }
+    function hexToRgb(hex) {
+      const h = hex.replace("#",""); const bigint = parseInt(h,16);
+      return { r:(bigint>>16)&255, g:(bigint>>8)&255, b:bigint&255 };
+    }
+
+    function estimatePurity(metadata, avgColor) {
+      const scores = {};
+      for(const [breed, sig] of Object.entries(BREED_SIGNATURES)) {
+        let score = 0;
+        if(metadata.claimedBreed === breed) score += 0.5;
+        if(metadata.lineage && metadata.lineage.toLowerCase().includes(breed.toLowerCase())) score += 0.15;
+        const traitMatches = sig.traits.filter(t => metadata.traits.includes(t)).length;
+        score += Math.min(0.25, traitMatches*0.08);
+        const sigRgb = hexToRgb(sig.color);
+        const dist = colorDistance(avgColor, sigRgb);
+        const colorSim = Math.max(0, (1 - (dist/441)))*0.3;
+        score += colorSim;
+        score += 0.05;
+        scores[breed] = Math.max(0, score);
+      }
+      const total = Object.values(scores).reduce((a,b)=>a+b,0) || 1;
+      return { percentages:Object.fromEntries(Object.entries(scores).map(([k,v])=>[k,Math.round((v/total)*100)])) };
+    }
+
+    const imgIn=document.getElementById("imgIn");
+    const preview=document.getElementById("preview");
+    const previewWrap=document.getElementById("previewWrap");
+    let lastAvgColor={r:200,g:200,b:200};
+    imgIn.addEventListener("change", async (e)=>{
+      const file=e.target.files[0]; if(!file) return;
+      const url=URL.createObjectURL(file);
+      preview.src=url; previewWrap.classList.remove("hidden");
+      await new Promise(res=>preview.onload=res);
+      const avg=computeAverageColor(preview); lastAvgColor=avg;
+      document.getElementById("colorSwatch").style.background=`rgb(${avg.r},${avg.g},${avg.b})`;
+      document.getElementById("avgColorText").textContent=`rgb(${avg.r},${avg.g},${avg.b})`;
+      document.getElementById("canvasWrap").classList.remove("hidden");
+    });
+
+    function collectMetadata(){
+      const claimedBreed=document.getElementById("claimedBreed").value;
+      const lineage=document.getElementById("lineage").value.trim();
+      const traits=Array.from(document.querySelectorAll(".trait")).filter(c=>c.checked).map(c=>c.value);
+      return {claimedBreed,lineage,traits};
+    }
+
+    function renderResult(resObj){
+      const meta=collectMetadata();
+      const percentages=resObj.percentages;
+      const claimed=meta.claimedBreed;
+      const claimedPct=percentages[claimed]??0;
+      const list=Object.entries(percentages).sort((a,b)=>b[1]-a[1]);
+      const top3=list.slice(0,3);
+      document.getElementById("summary").innerHTML=`
+        <div>
+          <div class="text-sm text-gray-600">Claimed breed:</div>
+          <div class="text-lg font-semibold">${claimed} — <span class="text-green-700">${claimedPct}% purity (est.)</span></div>
+          <div class="text-xs text-gray-500 mt-1">Heuristic estimator. Not a DNA test.</div>
+        </div>`;
+      const bList=document.getElementById("bList"); bList.innerHTML="";
+      bList.appendChild(makeLi("Claimed breed prior: +50%"));
+      bList.appendChild(makeLi("Trait matches & lineage: up to +25%"));
+      bList.appendChild(makeLi("Image color similarity: up to +30%"));
+      bList.appendChild(makeLi("Scores normalized to percentages."));
+      document.getElementById("breakdown").classList.remove("hidden");
+      const mixList=document.getElementById("mixList"); mixList.innerHTML="";
+      top3.forEach(([breed,pct])=>{
+        const sig=BREED_SIGNATURES[breed];
+        const div=document.createElement("div");
+        div.className="p-3 border rounded-md flex items-center justify-between";
+        div.innerHTML=`<div><div class="font-semibold">${breed}</div><div class="text-xs text-gray-600">${sig.traits.join(", ")}</div></div>
+          <div class="font-bold text-green-700">${pct}%</div>`;
+        mixList.appendChild(div);
+      });
+      document.getElementById("topMix").classList.remove("hidden");
+      localStorage.setItem("lastLineageResult", JSON.stringify({meta,percentages,avgColor:lastAvgColor}));
+    }
+    function makeLi(text){const li=document.createElement("li"); li.textContent=text; return li;}
+    document.getElementById("estimateBtn").addEventListener("click",()=>{
+      const meta=collectMetadata();
+      if(!preview.src && meta.traits.length===0 && !meta.lineage){alert("Upload photo or select traits/lineage");return;}
+      const res=estimatePurity(meta,lastAvgColor); renderResult(res);
+    });
+    document.getElementById("simulateBtn").addEventListener("click",()=>{
+      const meta=collectMetadata(); const base={};
+      for(const b of Object.keys(BREED_SIGNATURES)) base[b]=Math.random()*0.7+0.1;
+      if(meta.claimedBreed) base[meta.claimedBreed]=(base[meta.claimedBreed]||0)+1.5;
+      const total=Object.values(base).reduce((a,b)=>a+b,0);
+      const percentages=Object.fromEntries(Object.entries(base).map(([k,v])=>[k,Math.round((v/total)*100)]));
+      renderResult({percentages});
+    });
+    document.getElementById("exportBtn").addEventListener("click",()=>{
+      const saved=localStorage.getItem("lastLineageResult"); if(!saved) return alert("No result");
+      const obj=JSON.parse(saved);
+      const header=["claimed_breed","lineage_tag","avg_r","avg_g","avg_b"];
+      const firstRow=[obj.meta.claimedBreed||"",obj.meta.lineage||"",obj.avgColor.r,obj.avgColor.g,obj.avgColor.b];
+      const pctHeader=Object.keys(obj.percentages);
+      const pctRow=pctHeader.map(k=>obj.percentages[k]);
+      const csvLines=[header.concat(pctHeader).join(","),firstRow.concat(pctRow).join(",")];
+      const blob=new Blob([csvLines.join("\n")],{type:"text/csv;charset=utf-8;"});
+      const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="lineage_estimate.csv"; a.click(); URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

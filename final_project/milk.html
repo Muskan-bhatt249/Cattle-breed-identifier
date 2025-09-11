@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Boost Milk Production — Cattle AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="antialiased text-gray-900 bg-gray-50">
+  <!-- Navbar -->
+ <header class="fixed top-0 inset-x-0 z-50 backdrop-blur shadow-sm" style="background-color: rgba(249, 240, 194, 0.70);">
+
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2">
+  <img src="assets/logo.png" alt="Cattle AI Logo"  class="h-10 w-10 rounded-full object-cover">
+  <span class="font-semibold text-xl text-gray-900">Cattle AI</span>
+</a>
+
+
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a data-i18n="nav-home" href="index.html"  class="hover:text-[#f9b233]">Home</a>
+          <a data-i18n="nav-breeds" href="breeds.html"  class="hover:text-[#f9b233]">Breeds</a>
+          <a data-i18n="nav-identify" href="identify.html"  class="hover:text-[#f9b233]">Identify</a>
+          <a href="subsidy.html"  class="hover:text-[#f9b233]">Subsidies</a>
+          <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+          <a href="price.html"  class="hover:text-[#f9b233]">Price</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <select id="langSelect" class="border rounded-lg px-3 py-2 text-sm"></select>
+          <button id="mobileMenuBtn" class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border">☰</button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden px-4 pb-4">
+      <div class="flex flex-col gap-2 text-sm">
+        <a data-i18n="nav-home" href="index.html" class="py-2 border-b">Home</a>
+        <a data-i18n="nav-breeds" href="breeds.html" class="py-2 border-b">Breeds</a>
+        <a data-i18n="nav-identify" href="identify.html" class="py-2 border-b">Identify</a>
+        <a href="subsidy.html" class="py-2 border-b">Subsidies</a>
+        <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+    
+        <a href="price.html" class="py-2">Price</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="pt-28 pb-12 bg-[#f9b233]/20 text-center">
+    <div class="max-w-3xl mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold text-[#4a2c2a] mb-3">Boost Your Cattle’s Milk Production</h1>
+      <p class="text-lg text-[#5a3c36]">Enter cattle details to get a personalized improvement plan with feeding, health, and management tips.</p>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <main class="max-w-4xl mx-auto px-4 md:px-6 lg:px-8 pb-16">
+    <div class="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <label class="block mb-1 font-medium">🐄 Breed</label>
+          <input id="milkBreed" class="w-full border rounded-lg px-3 py-2" placeholder="e.g., Gir"/>
+        </div>
+        <div>
+          <label class="block mb-1 font-medium">📅 Age (years)</label>
+          <input id="milkAge" type="number" class="w-full border rounded-lg px-3 py-2" min="0" step="0.5"/>
+        </div>
+        <div>
+          <label class="block mb-1 font-medium">🥛 Current Yield (L/day)</label>
+          <input id="milkYield" type="number" class="w-full border rounded-lg px-3 py-2" min="0" step="0.1"/>
+        </div>
+        <div>
+          <label class="block mb-1 font-medium">🌍 Region / Climate</label>
+          <input id="milkRegion" class="w-full border rounded-lg px-3 py-2" placeholder="e.g., Hot & Humid"/>
+        </div>
+      </div>
+      <div class="text-center">
+        <button id="milkPlanBtn" class="px-6 py-3 bg-[#f9b233] text-white font-semibold rounded-lg shadow hover:bg-[#d99a1f]">Generate Improvement Plan</button>
+      </div>
+
+      <!-- Result -->
+      <div id="milkPlan" class="hidden mt-6 p-6 rounded-xl bg-[#fff7e6] border border-yellow-200">
+        <h3 class="font-semibold text-2xl text-[#4a2c2a] mb-4">📋 Suggested Plan</h3>
+        <ul id="milkPlanList" class="list-disc pl-6 space-y-2 text-gray-800"></ul>
+      </div>
+    </div>
+
+    <!-- Tips Section -->
+    <section class="mt-16 grid md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-lg font-semibold text-[#4a2c2a] mb-2">🥬 Feeding Strategy</h3>
+        <p class="text-sm text-gray-600">Balanced diet with green fodder, concentrates, and mineral mixtures ensures higher yields.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-lg font-semibold text-[#4a2c2a] mb-2">💉 Health Care</h3>
+        <p class="text-sm text-gray-600">Vaccinations, deworming, and clean housing reduce stress and boost productivity.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-lg font-semibold text-[#4a2c2a] mb-2">📊 Record Keeping</h3>
+        <p class="text-sm text-gray-600">Track yield patterns, heat cycles, and health status to optimize breeding and production.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-24 text-white" style="background-color:#f9b233;">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-10 grid gap-8 md:grid-cols-3">
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Cattle AI</h4>
+        <p class="text-white/80">Preserving India’s Heritage</p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Quick Links</h4>
+        <ul class="space-y-1 text-white/80">
+          <li><a href="breeds.html" class="hover:text-white">Breeds</a></li>
+          <li><a href="identify.html" class="hover:text-white">Identify</a></li>
+          <li><a href="subsidy.html" class="hover:text-white">Subsidies</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Contact</h4>
+        <p class="text-white/80">hello@cattle.ai</p>
+      </div>
+    </div>
+    <div class="border-t border-white/20 text-center py-4 text-white/70 text-sm">
+      © 2025 Cattle AI — All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    const milkPlanBtn = document.getElementById("milkPlanBtn");
+    const milkPlan = document.getElementById("milkPlan");
+    const milkPlanList = document.getElementById("milkPlanList");
+
+    milkPlanBtn.addEventListener("click", () => {
+      milkPlan.classList.remove("hidden");
+      milkPlanList.innerHTML = `
+        <li>Provide 20–25kg of green fodder daily with 4–5kg concentrate mix.</li>
+        <li>Supplement diet with mineral mixture + salt lick blocks.</li>
+        <li>Ensure 3–4 clean water sessions (30–50L per day).</li>
+        <li>Vaccinate against FMD, HS, and BQ as per local schedule.</li>
+        <li>Maintain cool, dry, and hygienic housing to reduce stress.</li>
+      `;
+    });
+  </script>
+</body>
+</html>

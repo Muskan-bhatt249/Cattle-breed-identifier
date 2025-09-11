@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Identify Cattle Breed — Cattle AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
+  <link rel="icon" href="assets/circular_logo.png" type="image/png" sizes="32x32"/>
+  <link rel="icon" href="assets/circular_logo.png" type="image/png" sizes="16x16"/>
+  <link rel="shortcut icon" href="assets/circular_logo.png"/>
+  <link rel="apple-touch-icon" href="assets/circular_logo.png"/>
+</head>
+<body class="antialiased text-gray-900 bg-gray-50">
+  <!-- Navbar -->
+ <header class="fixed top-0 inset-x-0 z-50 backdrop-blur shadow-sm" style="background-color: rgba(249, 240, 194, 0.70);">
+
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2">
+  <img src="assets/logo.png" alt="Cattle AI Logo"  class="h-10 w-10 rounded-full object-cover">
+  <span class="font-semibold text-xl text-gray-900">Cattle AI</span>
+</a>
+
+
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a data-i18n="nav-home" href="index.html"  class="hover:text-[#f9b233]">Home</a>
+          <a data-i18n="nav-breeds" href="breeds.html"  class="hover:text-[#f9b233]">Breeds</a>
+          <a data-i18n="nav-identify" href="identify.html"  class="hover:text-[#f9b233]">Identify</a>
+          <a href="subsidy.html"  class="hover:text-[#f9b233]">Subsidies</a>
+          <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+          <a href="price.html"  class="hover:text-[#f9b233]">Price</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a href="login.html" class="hidden md:inline-flex items-center justify-center h-10 w-10 rounded-full border hover:bg-white" title="Log in">👤</a>
+          <a href="signup.html" class="hidden md:inline-flex items-center gap-2 text-sm px-3 py-2 rounded-lg border hover:bg-white">Sign up</a>
+          <select id="langSelect" class="border rounded-lg px-3 py-2 text-sm"></select>
+          <button id="mobileMenuBtn" class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border">☰</button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden px-4 pb-4">
+      <div class="flex flex-col gap-2 text-sm">
+        <a data-i18n="nav-home" href="index.html" class="py-2 border-b">Home</a>
+        <a data-i18n="nav-breeds" href="breeds.html" class="py-2 border-b">Breeds</a>
+        <a data-i18n="nav-identify" href="identify.html" class="py-2 border-b">Identify</a>
+        <a href="subsidy.html" class="py-2 border-b">Subsidies</a>
+        <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+    
+        <a href="price.html" class="py-2">Price</a>
+        <a href="login.html" class="py-2 border-t">Log in</a>
+        <a href="signup.html" class="py-2">Sign up</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="pt-28 pb-16 bg-gradient-to-br from-[#f9b233]/20 via-[#f9b233]/10 to-[#ffcc5c]/20 text-center relative overflow-hidden">
+    <!-- Floating background elements -->
+    <div class="absolute inset-0">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 relative z-10">
+      <h1 class="text-5xl md:text-6xl font-bold text-[#4a2c2a] mb-4 bg-gradient-to-r from-[#4a2c2a] to-[#6b3e3a] bg-clip-text text-transparent">
+        Identify Your Cattle
+      </h1>
+      <p class="text-xl text-[#5a3c36] mb-8 max-w-2xl mx-auto leading-relaxed">
+        Upload a photo of your cow or buffalo and let our advanced AI suggest the breed with detailed traits and confidence scores.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 text-sm text-[#5a3c36]">
+        <div class="flex items-center gap-2 bg-white/60 rounded-full px-3 py-1">
+          <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+          <span>Instant Results</span>
+        </div>
+        <div class="flex items-center gap-2 bg-white/60 rounded-full px-3 py-1">
+          <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+          <span>High Accuracy</span>
+        </div>
+        <div class="flex items-center gap-2 bg-white/60 rounded-full px-3 py-1">
+          <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+          <span>Detailed Info</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upload Box -->
+  <main class="max-w-5xl mx-auto px-4 md:px-6 lg:px-8 pb-16 -mt-8 relative z-20">
+    <!-- API warning -->
+    <div id="apiWarning" class="hidden mb-6 p-4 rounded-xl border border-amber-300 bg-gradient-to-r from-amber-50 to-yellow-50 text-amber-900 shadow-lg">
+      <div class="flex items-center gap-3">
+        <span class="text-xl">⚠️</span>
+        <div>
+          <p class="font-medium">Unable to reach AI server</p>
+          <p class="text-sm opacity-80">Falling back to on-device/demo prediction.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Enhanced Upload Area -->
+    <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden upload-area-hover">
+      <div class="bg-gradient-to-r from-[#f9b233] to-[#ffcc5c] p-6 text-center">
+        <h2 class="text-2xl font-bold text-white mb-2">📸 Upload Your Cattle Photo</h2>
+        <p class="text-white/90">Get instant breed identification with AI</p>
+      </div>
+      
+      <label for="fileUpload" class="block p-12 text-center cursor-pointer bg-gradient-to-br from-gray-50 to-white hover:from-yellow-50 hover:to-orange-50 transition-all duration-300 group">
+        <div class="max-w-md mx-auto">
+          <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-[#f9b233] to-[#ffcc5c] rounded-full flex items-center justify-center text-3xl text-white shadow-lg group-hover:scale-110 transition-transform duration-300 float-animation">
+            📷
+          </div>
+          <p class="text-xl font-semibold text-[#4a2c2a] mb-3">Drag & drop your image here</p>
+          <p class="text-gray-600 mb-4">or click to browse files</p>
+          <div class="inline-flex items-center gap-2 bg-[#f9b233] text-white px-6 py-3 rounded-full font-medium hover:bg-[#d99a1f] transition-colors duration-300 btn-animate">
+            <span>Choose File</span>
+            <span class="text-sm">📁</span>
+          </div>
+          <p class="text-sm text-gray-500 mt-4">Supported: JPG, PNG, WEBP • Max 10MB</p>
+          <p class="text-xs text-gray-400 mt-2">💡 Tip: Clear side/head view works best for accurate identification</p>
+        </div>
+        <input type="file" id="fileUpload" class="hidden" accept="image/*">
+      </label>
+    </div>
+
+    <!-- Enhanced Preview Section -->
+    <div id="preview" class="mt-8 hidden">
+      <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden preview-card">
+        <div class="bg-gradient-to-r from-green-500 to-emerald-600 p-4 text-center">
+          <h3 class="text-lg font-semibold text-white">📸 Image Preview</h3>
+        </div>
+        <div class="p-6">
+          <div class="relative">
+            <img id="previewImg" class="max-h-80 mx-auto rounded-xl shadow-lg border-2 border-gray-200" alt="Preview">
+            <div class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg">
+              <span class="text-green-600 text-sm font-medium">✓ Ready</span>
+            </div>
+          </div>
+          <div class="mt-6 text-center">
+            <button id="identifyBtn" class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#f9b233] to-[#ffcc5c] text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-lg btn-animate glow-effect">
+              <span class="text-xl">🔍</span>
+              <span>Identify Breed</span>
+              <span class="text-sm opacity-80">→</span>
+            </button>
+            <p class="text-sm text-gray-500 mt-3">Click to analyze with AI</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced Results Section -->
+    <div id="identifyResult" class="mt-10 hidden">
+      <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden result-card">
+        <!-- Results Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-center">
+          <h3 class="text-2xl font-bold text-white mb-2">🔎 AI Analysis Results</h3>
+          <p class="text-blue-100">Breed identification complete</p>
+        </div>
+        
+        <div class="p-8">
+          <!-- Enhanced Prediction Display -->
+          <div class="text-center mb-8">
+            <div class="inline-block bg-gradient-to-r from-[#f9b233] to-[#ffcc5c] rounded-2xl p-6 shadow-xl mb-4 prediction-card prediction-glow">
+              <div class="bg-white/90 backdrop-blur-sm rounded-xl p-6 border-2 border-white/50">
+                <div class="flex items-center justify-center gap-4 mb-4">
+                  <span class="text-5xl float-animation">🐄</span>
+                  <div class="text-left">
+                    <p class="text-sm font-bold text-gray-600 uppercase tracking-wider mb-2">Predicted Breed</p>
+                    <p id="predictionText" class="text-4xl md:text-6xl font-black text-[#4a2c2a] leading-tight prediction-text">—</p>
+                  </div>
+                </div>
+                <div class="w-full h-3 bg-gradient-to-r from-[#f9b233] to-[#ffcc5c] rounded-full shadow-inner"></div>
+              </div>
+            </div>
+            <div class="flex items-center justify-center gap-3 text-sm text-gray-600 bg-white/60 rounded-full px-4 py-2 shadow-lg">
+              <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              <span class="font-medium">AI Verified Result</span>
+              <span class="text-green-600">✓</span>
+            </div>
+          </div>
+          
+          <!-- AI Processing Animation -->
+          <div id="processingStars" class="hidden flex justify-center items-center py-8">
+            <div class="bg-gradient-to-r from-[#f9b233]/10 to-[#ffcc5c]/10 rounded-2xl p-6 border border-[#f9b233]/20">
+              <div class="flex space-x-2 mb-4">
+                <div class="w-3 h-3 bg-[#f9b233] rounded-full animate-pulse" style="animation-delay: 0s;"></div>
+                <div class="w-3 h-3 bg-[#f9b233] rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+                <div class="w-3 h-3 bg-[#f9b233] rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+                <div class="w-3 h-3 bg-[#f9b233] rounded-full animate-pulse" style="animation-delay: 0.6s;"></div>
+                <div class="w-3 h-3 bg-[#f9b233] rounded-full animate-pulse" style="animation-delay: 0.8s;"></div>
+              </div>
+              <p class="text-[#f9b233] font-semibold text-lg">🤖 AI Analyzing Image...</p>
+              <p class="text-gray-600 text-sm mt-1">Processing with advanced neural networks</p>
+            </div>
+          </div>
+          
+          <!-- Enhanced Confidence Display -->
+          <div class="confidence-bar-container">
+            <div class="text-center mb-4">
+              <h4 class="text-lg font-semibold text-gray-800 mb-2">🎯 Confidence Score</h4>
+              <p class="text-sm text-gray-600">How certain the AI is about this prediction</p>
+            </div>
+            
+            <div class="confidence-bar">
+              <div class="confidence-fill" id="confidenceFill" style="width:0%"></div>
+              <div class="confidence-value" id="confidenceValue">0%</div>
+              <div class="confidence-labels">
+                <div class="label">Low</div>
+                <div class="label">Medium</div>
+                <div class="label">High</div>
+                <div class="label">Very High</div>
+              </div>
+              <div class="confidence-markers">
+                <div class="marker" style="left: 25%;"></div>
+                <div class="marker" style="left: 50%;"></div>
+                <div class="marker" style="left: 75%;"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Breed Information Panel -->
+          <div id="breedInfoPanel" class="hidden mt-8">
+            <div class="bg-gradient-to-br from-[#fff7e6] to-[#fef3c7] rounded-2xl p-8 border-2 border-amber-200 shadow-lg">
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-[#f9b233] to-[#ffcc5c] rounded-full flex items-center justify-center text-2xl">
+                  🐄
+                </div>
+                <h4 class="text-3xl font-bold text-[#4a2c2a]">Breed Information</h4>
+              </div>
+              <div id="breedInfoBody" class="text-gray-800 text-lg space-y-4"></div>
+            </div>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 mt-8 justify-center">
+            <a href="breeds.html" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 btn-animate">
+              <span>📚</span>
+              <span>Explore All Breeds</span>
+            </a>
+            <button onclick="document.getElementById('fileUpload').click()" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 btn-animate">
+              <span>📷</span>
+              <span>Try Another Image</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced Tips Section -->
+    <section class="mt-16">
+      <div class="bg-gradient-to-br from-[#fff7e6] to-[#fef3c7] rounded-3xl p-8 md:p-12 shadow-xl border border-amber-200">
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center gap-3 bg-white/80 rounded-full px-6 py-3 mb-4 shadow-lg">
+            <span class="text-2xl">💡</span>
+            <h2 class="text-2xl font-bold text-[#4a2c2a]">Tips for Best Identification</h2>
+          </div>
+          <p class="text-gray-600 max-w-2xl mx-auto">Follow these guidelines to get the most accurate breed identification results</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white/60 rounded-2xl p-6 border border-amber-200 shadow-lg">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-xl flex-shrink-0">
+                📸
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg text-[#4a2c2a] mb-2">Photo Quality</h3>
+                <ul class="text-gray-700 space-y-1 text-sm">
+                  <li>• Upload clear photos from the <strong>side angle</strong></li>
+                  <li>• Ensure proper lighting — avoid shadows or glare</li>
+                  <li>• Capture the full body shape and proportions</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white/60 rounded-2xl p-6 border border-amber-200 shadow-lg">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white text-xl flex-shrink-0">
+                🐄
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg text-[#4a2c2a] mb-2">For Buffaloes</h3>
+                <ul class="text-gray-700 space-y-1 text-sm">
+                  <li>• Side + head photos improve accuracy</li>
+                  <li>• Show distinctive horn shape and size</li>
+                  <li>• Include body markings if visible</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white/60 rounded-2xl p-6 border border-amber-200 shadow-lg">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center text-white text-xl flex-shrink-0">
+                ⚡
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg text-[#4a2c2a] mb-2">Best Results</h3>
+                <ul class="text-gray-700 space-y-1 text-sm">
+                  <li>• Use high-resolution images (1MB+)</li>
+                  <li>• Avoid blurry or distant shots</li>
+                  <li>• Single animal per photo works best</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white/60 rounded-2xl p-6 border border-amber-200 shadow-lg">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center text-white text-xl flex-shrink-0">
+                🎯
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg text-[#4a2c2a] mb-2">Additional Info</h3>
+                <ul class="text-gray-700 space-y-1 text-sm">
+                  <li>• Include age, milk yield if known</li>
+                  <li>• Note any distinctive features</li>
+                  <li>• Location/region can help accuracy</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-24 text-white" style="background-color:#f9b233;">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-10 grid gap-8 md:grid-cols-3">
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Cattle AI</h4>
+        <p class="text-white/80">Preserving India’s Heritage</p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Quick Links</h4>
+        <ul class="space-y-1 text-white/80">
+          <li><a href="breeds.html" class="hover:text-white">Breeds</a></li>
+          <li><a href="identify.html" class="hover:text-white">Identify</a></li>
+          <li><a href="subsidy.html" class="hover:text-white">Subsidies</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Contact</h4>
+        <p class="text-white/80">hello@cattle.ai</p>
+      </div>
+    </div>
+    <div class="border-t border-white/20 text-center py-4 text-white/70 text-sm">
+      © 2025 Cattle AI — All rights reserved.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.21.0/dist/tf.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

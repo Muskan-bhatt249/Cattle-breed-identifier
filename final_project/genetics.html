@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Genetics — Cattle AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
+  <link rel="icon" href="assets/circular_logo.png" type="image/png" sizes="32x32"/>
+  <link rel="icon" href="assets/circular_logo.png" type="image/png" sizes="16x16"/>
+  <link rel="shortcut icon" href="assets/circular_logo.png"/>
+  <link rel="apple-touch-icon" href="assets/circular_logo.png"/>
+</head>
+<body class="antialiased text-gray-900 bg-gray-50">
+
+  <!-- Navbar -->
+ <header class="fixed top-0 inset-x-0 z-50 backdrop-blur shadow-sm" style="background-color: rgba(249, 240, 194, 0.70);">
+
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2">
+  <img src="assets/logo.png" alt="Cattle AI Logo"  class="h-10 w-10 rounded-full object-cover">
+  <span class="font-semibold text-xl text-gray-900">Cattle AI</span>
+</a>
+
+
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a data-i18n="nav-home" href="index.html"  class="hover:text-[#f9b233]">Home</a>
+          <a data-i18n="nav-breeds" href="breeds.html"  class="hover:text-[#f9b233]">Breeds</a>
+          <a data-i18n="nav-identify" href="identify.html"  class="hover:text-[#f9b233]">Identify</a>
+          <a href="subsidy.html"  class="hover:text-[#f9b233]">Subsidies</a>
+          <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+          <a href="price.html"  class="hover:text-[#f9b233]">Price</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <select id="langSelect" class="border rounded-lg px-3 py-2 text-sm"></select>
+          <button id="mobileMenuBtn" class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border">☰</button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden px-4 pb-4">
+      <div class="flex flex-col gap-2 text-sm">
+        <a data-i18n="nav-home" href="index.html" class="py-2 border-b">Home</a>
+        <a data-i18n="nav-breeds" href="breeds.html" class="py-2 border-b">Breeds</a>
+        <a data-i18n="nav-identify" href="identify.html" class="py-2 border-b">Identify</a>
+        <a href="subsidy.html" class="py-2 border-b">Subsidies</a>
+        <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+    
+        <a href="price.html" class="py-2">Price</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="pt-28 pb-16 bg-[#f9f0c2]/20">
+    <div class="max-w-4xl mx-auto text-center px-6">
+      <h1 class="text-4xl md:text-5xl font-bold text-[#4a2c2a] mb-4">
+        Genetics & Breeding Programs
+      </h1>
+      <p class="text-lg text-[#5a3c36]">
+        Discover India’s cattle breeding initiatives, genetic research, and AI-powered tools to enhance productivity and preserve native heritage.
+      </p>
+    </div>
+  </section>
+
+  <!-- Govt Initiatives -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-[#4a2c2a] mb-8 text-center">
+        Government Initiatives in Cattle Genetics
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-[#f9f0c2] rounded-xl shadow-md p-6">
+          <h3 class="font-semibold text-xl text-[#4a2c2a] mb-2">National Dairy Plan (NDP)</h3>
+          <p class="text-[#5a3c36] text-sm">
+            Focused on genetic improvement of indigenous breeds and increasing milk productivity across India.
+          </p>
+        </div>
+        <div class="bg-[#f9f0c2] rounded-xl shadow-md p-6">
+          <h3 class="font-semibold text-xl text-[#4a2c2a] mb-2">Rashtriya Gokul Mission</h3>
+          <p class="text-[#5a3c36] text-sm">
+            Establishes Gokul Grams, semen stations, and IVF centers for conserving and improving native breeds.
+          </p>
+        </div>
+        <div class="bg-[#f9f0c2] rounded-xl shadow-md p-6">
+          <h3 class="font-semibold text-xl text-[#4a2c2a] mb-2">Breed Improvement Programs</h3>
+          <p class="text-[#5a3c36] text-sm">
+            State-level initiatives to promote crossbreeding, disease resistance, and better genetic lineage tracking.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Hub -->
+  <section class="py-20 bg-[#fff7e6]">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold text-[#4a2c2a] mb-12">
+        Explore Our Genetic Tools
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- Lineage Estimator -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+          <img src="assets/lineage.jpg" alt="Lineage Estimator" class="h-40 w-full object-cover">
+          <div class="p-6">
+            <h3 class="font-semibold text-xl text-[#4a2c2a] mb-2">Genetic Lineage Estimator</h3>
+            <p class="text-sm text-[#5a3c36] mb-4">
+              Trace cattle ancestry, lineage purity, and genetic strength using AI predictions.
+            </p>
+            <a href="geneticlineage.html" class="btn-primary inline-block">Explore →</a>
+          </div>
+        </div>
+
+        <!-- Crossbreeding Explorer -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+          <img src="assets/crossbreed.jpg" alt="Crossbreeding Explorer" class="h-40 w-full object-cover">
+          <div class="p-6">
+            <h3 class="font-semibold text-xl text-[#4a2c2a] mb-2">Crossbreeding Explorer</h3>
+            <p class="text-sm text-[#5a3c36] mb-4">
+              Experiment with crossbreeding scenarios and learn about expected traits and milk yield.
+            </p>
+            <a href="crossbreed.html" class="btn-primary inline-block">Try Now →</a>
+          </div>
+        </div>
+
+        <!-- Breed Match Tool -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+          <img src="assets/breedmatch.jpg" alt="Breed Match Tool" class="h-40 w-full object-cover">
+          <div class="p-6">
+            <h3 class="font-semibold text-xl text-[#4a2c2a] mb-2">Breed Finder</h3>
+            <p class="text-sm text-[#5a3c36] mb-4">
+              Find the best-suited cattle breeds for your region, climate, and farming needs.
+            </p>
+            <a href="breedmatch.html" class="btn-primary inline-block">Find Match →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-24 text-white" style="background-color:#f9b233;">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Cattle AI</h4>
+        <p class="text-white/80">Preserving India’s Heritage</p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Quick Links</h4>
+        <ul class="space-y-1 text-white/80">
+          <li><a href="breeds.html" class="hover:text-white">Breeds</a></li>
+          <li><a href="identify.html" class="hover:text-white">Identify</a></li>
+          <li><a href="subsidy.html" class="hover:text-white">Subsidies</a></li>
+          <li><a href="price.html" class="hover:text-white">Price</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-2">Contact</h4>
+        <p class="text-white/80">hello@cattle.ai</p>
+      </div>
+    </div>
+    <div class="border-t border-white/20 text-center py-4 text-white/70 text-sm">
+      © 2025 Cattle AI — All rights reserved.
+    </div>
+  </footer>
+  <!-- Chatbot Floating Icon -->
+  <div id="chatbot">
+    <button id="chatBtn">💬</button>
+    <div id="chatWindow">
+      <div id="chatHeader">Cattle AI Chatbot</div>
+      <div id="chatBody">
+        <div class="text-gray-500 text-center">Hello! How can I help you? 👋</div>
+      </div>
+      <div id="chatInputWrap">
+        <input id="chatInput" type="text" placeholder="Type a message..."/>
+        <button id="sendBtn">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const chatBtn = document.getElementById("chatBtn");
+    const chatWindow = document.getElementById("chatWindow");
+    const sendBtn = document.getElementById("sendBtn");
+    const chatBody = document.getElementById("chatBody");
+    const chatInput = document.getElementById("chatInput");
+
+    // Toggle chat window
+    chatBtn.addEventListener("click", () => {
+      chatWindow.style.display = chatWindow.style.display === "block" ? "none" : "block";
+    });
+
+    // Send message
+    sendBtn.addEventListener("click", () => {
+      const msg = chatInput.value.trim();
+      if(msg){
+        const userMsg = document.createElement("div");
+        userMsg.style.textAlign = "right";
+        userMsg.innerHTML = `<span style="background:#dcfce7; padding:4px 8px; border-radius:6px; display:inline-block; margin:4px 0;">${msg}</span>`;
+        chatBody.appendChild(userMsg);
+
+        chatInput.value = "";
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // Simulated reply
+        setTimeout(()=>{
+          const botMsg = document.createElement("div");
+          botMsg.style.textAlign = "left";
+          botMsg.innerHTML = `<span style="background:#f3f4f6; padding:4px 8px; border-radius:6px; display:inline-block; margin:4px 0;">🤖 Got it! "${msg}"</span>`;
+          chatBody.appendChild(botMsg);
+          chatBody.scrollTop = chatBody.scrollHeight;
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

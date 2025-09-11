@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy Cattle — Cattle AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="antialiased text-gray-900 bg-gray-50">
+
+  <!-- Navbar -->
+ <header class="fixed top-0 inset-x-0 z-50 backdrop-blur shadow-sm" style="background-color: rgba(249, 240, 194, 0.70);">
+
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2">
+  <img src="assets/logo.png" alt="Cattle AI Logo"  class="h-10 w-10 rounded-full object-cover">
+  <span class="font-semibold text-xl text-gray-900">Cattle AI</span>
+</a>
+
+
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a data-i18n="nav-home" href="index.html"  class="hover:text-[#f9b233]">Home</a>
+          <a data-i18n="nav-breeds" href="breeds.html"  class="hover:text-[#f9b233]">Breeds</a>
+          <a data-i18n="nav-identify" href="identify.html"  class="hover:text-[#f9b233]">Identify</a>
+          <a href="subsidy.html"  class="hover:text-[#f9b233]">Subsidies</a>
+          <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+          <a href="price.html"  class="hover:text-[#f9b233]">Price</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <select id="langSelect" class="border rounded-lg px-3 py-2 text-sm"></select>
+          <button id="mobileMenuBtn" class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border">☰</button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden px-4 pb-4">
+      <div class="flex flex-col gap-2 text-sm">
+        <a data-i18n="nav-home" href="index.html" class="py-2 border-b">Home</a>
+        <a data-i18n="nav-breeds" href="breeds.html" class="py-2 border-b">Breeds</a>
+        <a data-i18n="nav-identify" href="identify.html" class="py-2 border-b">Identify</a>
+        <a href="subsidy.html" class="py-2 border-b">Subsidies</a>
+        <a href="genetics.html"  class="hover:text-[#f9b233]">Genetics</a>
+    
+        <a href="price.html" class="py-2">Price</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="pt-28 pb-12 bg-[#f9b233]/20 text-center">
+    <div class="max-w-3xl mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold text-[#4a2c2a] mb-3">Buy Cattle</h1>
+      <p class="text-lg text-[#5a3c36]">Browse verified cattle and buffalo listings. Filter by breed, region or price to find the best for your farm.</p>
+    </div>
+  </section>
+
+  <!-- Search & Filter -->
+  <section class="max-w-5xl mx-auto px-6 pb-12">
+    <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+      <input id="searchInput" type="text" placeholder="Search breed, region..." class="flex-1 border rounded-lg px-4 py-2">
+      <select id="sortSelect" class="border rounded-lg px-4 py-2">
+        <option value="">Sort by</option>
+        <option value="priceLow">Price: Low → High</option>
+        <option value="priceHigh">Price: High → Low</option>
+        <option value="milkHigh">Milk Yield: High → Low</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Listings -->
+  <section class="max-w-6xl mx-auto px-6 pb-20">
+    <div id="cattleGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#f9b233] text-white mt-12">
+    <div class="max-w-7xl mx-auto px-6 py-8 text-center text-white/80">
+      © 2025 Cattle AI — Empowering Farmers
+    </div>
+  </footer>
+
+  <script>
+    // Default listings
+    const defaultCattle = [
+      { breed:"Murrah Buffalo", age:"4 years", milk:"12 L/day", region:"Punjab", price:"₹65,000", img:"assets/murrah.jpg" },
+      { breed:"Gir Cow", age:"5 years", milk:"10 L/day", region:"Gujarat", price:"₹55,000", img:"assets/gir.jpg" },
+      { breed:"Sahiwal Cow", age:"3.5 years", milk:"11 L/day", region:"Haryana", price:"₹60,000", img:"assets/sahiwal.jpg" },
+      { breed:"Tharparkar Cow", age:"4 years", milk:"8 L/day", region:"Rajasthan", price:"₹45,000", img:"assets/tharparkar.jpg" },
+      { breed:"Nili-Ravi Buffalo", age:"6 years", milk:"14 L/day", region:"UP", price:"₹70,000", img:"assets/niliravi.jpg" },
+    ];
+
+    // Load user listings from localStorage
+    function getUserCattle(){
+      return JSON.parse(localStorage.getItem("userCattle") || "[]");
+    }
+
+    // Render grid
+    function renderCattle(cattle){
+      const grid = document.getElementById("cattleGrid");
+      grid.innerHTML = "";
+      if(cattle.length === 0){
+        grid.innerHTML = `<p class="text-gray-600 col-span-full text-center">No cattle available at the moment.</p>`;
+        return;
+      }
+      cattle.forEach(c => {
+        grid.innerHTML += `
+          <div class="bg-white rounded-xl shadow p-4 flex flex-col">
+            <img src="${c.img}" alt="${c.breed}" class="h-40 w-full object-cover rounded-md mb-3">
+            <h3 class="font-semibold text-lg">${c.breed}</h3>
+            <p class="text-sm text-gray-600">${c.age} • ${c.milk}</p>
+            <p class="text-sm text-gray-600">${c.region}</p>
+            <p class="text-lg font-bold text-green-700 mt-2">${c.price}</p>
+          </div>
+        `;
+      });
+    }
+
+    // Merge default + user cattle
+    function getAllCattle(){
+      return [...defaultCattle, ...getUserCattle()];
+    }
+
+    // Filtering
+    document.getElementById("searchInput").addEventListener("input", ()=>{
+      filterAndRender();
+    });
+
+    document.getElementById("sortSelect").addEventListener("change", ()=>{
+      filterAndRender();
+    });
+
+    function filterAndRender(){
+      let cattle = getAllCattle();
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      if(query){
+        cattle = cattle.filter(c =>
+          c.breed.toLowerCase().includes(query) ||
+          c.region.toLowerCase().includes(query)
+        );
+      }
+
+      const sort = document.getElementById("sortSelect").value;
+      if(sort === "priceLow") cattle.sort((a,b)=> parseInt(a.price.replace(/\D/g,"")) - parseInt(b.price.replace(/\D/g,"")));
+      if(sort === "priceHigh") cattle.sort((a,b)=> parseInt(b.price.replace(/\D/g,"")) - parseInt(a.price.replace(/\D/g,"")));
+      if(sort === "milkHigh") cattle.sort((a,b)=> parseFloat(b.milk) - parseFloat(a.milk));
+
+      renderCattle(cattle);
+    }
+
+    // Initial render
+    filterAndRender();
+  </script>
+</body>
+</html>
